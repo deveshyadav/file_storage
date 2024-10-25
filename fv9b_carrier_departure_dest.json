@@ -1,0 +1,49 @@
+//amznReId- 47fa093c-eca8-418a-beb4-5b5ec664de4f
+
+
+//Request
+{
+    "carrier": {
+        "scac": "TEST",
+        "fvCarrierId": "FV0834338A"
+    },
+    "stopSequence": 2,
+    "eventDetail": {
+        "eventDate": "{{destination_actual_departure}}",
+        "event": "CD",
+        "reason": "NS"
+    }
+}
+
+//Response
+{
+    "shipment_status": {
+        "id": 3255199057,
+        "organization_id": 1003,
+        "user_id": null,
+        "shipment_id": 39808864,
+        "shipment_stop_id": 288473986,
+        "status_location_id": null,
+        "actual_created_at": "2024-10-25T16:00:00+00:00",
+        "remarks": null,
+        "created_at": null,
+        "updated_at": null,
+        "obc_asset_id": null,
+        "driver_id": null,
+        "status_code": "CD",
+        "status_reason_code": "NS",
+        "is_exception": false,
+        "status_type": 1,
+        "message_id": null,
+        "longitude": null,
+        "latitude": null,
+        "processed_at": "2024-10-25 11:10:41.800738+00:00",
+        "trailer_number": null,
+        "status_details": null,
+        "actor_id": "auth0|5b9817c072d4bb47f9a5fae1",
+        "actor_type": "system",
+        "actor_email": "test@freightverify-api.com",
+        "rail_asset_id": null,
+        "equipment_desc": null
+    }
+}
