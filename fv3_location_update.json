@@ -1,0 +1,17 @@
+//amznRId- 55ce4c93-869d-4f0b-bf3b-267bc7d6ac88
+
+//Request
+{
+    "carrier": {
+        "scac": "TEST",
+        "fvCarrierId": "FV0834338A"
+    },
+    "location": {
+        "latitude": 42.4831,
+        "longitude": -83.24124
+    },
+    "eventDetail": {
+        "eventDate": "{{origin_actual_arrival}}",
+        "event": "LO"
+    }
+}
