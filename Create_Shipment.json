@@ -1,1 +1,230 @@
 
+//amznRequstId-
+//cd6670a8-4615-4157-ab3c-ec9b4a53d771
+
+//Request:-
+
+{
+    "carrier": {
+        "scac": "TEST",
+        "fvCarrierId": "FV0834338A"
+    },
+    "customer": {
+        "fvCustomerId": "FV3221778A"
+    },
+    "shipmentIdentification": {
+        "shipmentId": "{{shipment_id}}",
+        "proNumber": "AIR-PRONUM"
+    },
+    "stops": [
+        {
+            "stopSequence": 1,
+            "stopType": "load",
+            "stopRole": "ship_from",
+            "earlyArrival": "{{origin_early_pickup}}",
+            "lateArrival": "{{origin_late_pickup}}",
+            "location": {
+                "name": "Dallas/Fort Worth Airport",
+                "address1": "2400 Aviation Dr.",
+                "city": "Dallas",
+                "state": "TX",
+                "postalCode": "75261",
+                "country": "US",
+                "locationId": {
+                    "value": "DFW"
+                }
+            }
+        },
+        {
+            "stopSequence": 2,
+            "stopType": "unload",
+            "stopRole": "ship_to",
+            "earlyArrival": "{{destination_early_delivery}}",
+            "lateArrival": "{{destination_late_delivery}}",
+            "location": {
+                "name": "Detroit Metro Airport",
+                "address1": "198 William Rogell Dr.",
+                "city": "Detroit",
+                "state": "MI",
+                "postalCode": "48242",
+                "country": "US",
+                "locationId": {
+                    "value": "DTW"
+                }
+            }
+        }
+    ],
+    "shipmentReferences": [
+        {
+            "qualifier": "mode",
+            "value": "air"
+        },
+        {
+            "qualifier": "route_id",
+            "value": "AIR-ROUTE"
+        },
+        {
+            "qualifier": "order_number",
+            "value": "{{order_number}}"
+        },
+        {
+            "qualifier": "part",
+            "value": "AIR-PART1 (50)"
+        },
+        {
+            "qualifier": "part",
+            "value": "AIR-PART2 (100)"
+        }
+    ]
+}
+
+
+
+//Response:-
+
+{
+    "shipment": {
+        "id": 39808840,
+        "fv_id": "FV0639451A",
+        "created_by_user_id": null,
+        "created_by_org_id": 1004,
+        "creator_shipment_id": "A13QUWVT0SQ",
+        "driver_id": null,
+        "total_distance": 986.6128293179373,
+        "progress": null,
+        "status_updated_at": null,
+        "obc_asset_id": null,
+        "trailer_number": null,
+        "asset_unqueryable": null,
+        "asset_tracking_start_stop": null,
+        "created_at": null,
+        "updated_at": null,
+        "is_accepted": true,
+        "is_completed": false,
+        "is_integration": true,
+        "current_status": null,
+        "eta": null,
+        "frozen_eta": null,
+        "frozen_eta_reason": null,
+        "current_exception": null,
+        "remaining_distance": null,
+        "message_id": null,
+        "is_behind_schedule": false,
+        "carrier_organization_id": 1003,
+        "origin_location_id": null,
+        "destination_location_id": null,
+        "origin_pickup_window": [
+            1729816200.0,
+            1729823400.0
+        ],
+        "destination_delivery_window": [
+            1729834200.0,
+            1729841400.0
+        ],
+        "picked_up_at": null,
+        "delivered_at": null,
+        "mode_id": 7,
+        "destination_newloc_id": 288523,
+        "origin_newloc_id": 288522,
+        "active_until": null,
+        "active_status": null,
+        "actor_id": "auth0|5b9817c072d4bb47f9a5fae1",
+        "actor_type": "system",
+        "actor_email": "test@freightverify-api.com",
+        "is_rack_return": null,
+        "pro_number": "AIR-PRONUM",
+        "tracking_window": null,
+        "rail_creator_shipment_id": "A13QUWVT0SQ",
+        "shipment_id_3pl": null,
+        "tracking_disabled": null,
+        "rail_asset_id": null,
+        "route_number": "AIR-ROUTE",
+        "trip_plan_number": null,
+        "leg": false,
+        "vins_added": null,
+        "line_of_business_id": 2,
+        "submode_id": null,
+        "parent_shipment_id": null,
+        "status_details": null,
+        "current_road_organization_id": null,
+        "rail_train_id": null,
+        "rail_loaded_status": null,
+        "change_details": null,
+        "original_schedule_start_day": null,
+        "current_schedule_offset": null,
+        "allow_origin_window_carrier_update": null,
+        "allow_destination_window_carrier_update": null,
+        "trip_plan_id": null,
+        "shipment_details": {
+            "hasParts": true
+        },
+        "shipment_stops": [
+            {
+                "id": 288473934,
+                "shipment_id": 39808840,
+                "stop_sequence": 1,
+                "org_location_id": null,
+                "is_missed": false,
+                "earliest_arrival_datetime": "2024-10-25T00:30:00+00:00",
+                "latest_arrival_datetime": "2024-10-25T02:30:00+00:00",
+                "created_at": "2024-10-25T07:39:11.625726+00:00",
+                "updated_at": null,
+                "stop_reason": "LD",
+                "stop_role": "SF",
+                "eta": null,
+                "frozen_eta": null,
+                "frozen_eta_reason": null,
+                "is_behind_schedule": false,
+                "distance": 0.0,
+                "remaining_distance": null,
+                "arrival_ping": 0,
+                "is_relay_stop": false,
+                "obc_asset_id": null,
+                "creator_location_id": "DFW",
+                "arrived_at": null,
+                "departed_at": null,
+                "location_id": 288522,
+                "stop_identifier": "",
+                "mode_id": 7,
+                "child_shipment_id": null,
+                "geofence_entered": null,
+                "is_fv_eta": null,
+                "change_details": null,
+                "geofence_details": null
+            },
+            {
+                "id": 288473935,
+                "shipment_id": 39808840,
+                "stop_sequence": 2,
+                "org_location_id": null,
+                "is_missed": false,
+                "earliest_arrival_datetime": "2024-10-25T05:30:00+00:00",
+                "latest_arrival_datetime": "2024-10-25T07:30:00+00:00",
+                "created_at": "2024-10-25T07:39:11.625726+00:00",
+                "updated_at": null,
+                "stop_reason": "UL",
+                "stop_role": "ST",
+                "eta": null,
+                "frozen_eta": null,
+                "frozen_eta_reason": null,
+                "is_behind_schedule": false,
+                "distance": 0.0,
+                "remaining_distance": null,
+                "arrival_ping": 0,
+                "is_relay_stop": false,
+                "obc_asset_id": null,
+                "creator_location_id": "DTW",
+                "arrived_at": null,
+                "departed_at": null,
+                "location_id": 288523,
+                "stop_identifier": "",
+                "mode_id": 7,
+                "child_shipment_id": null,
+                "geofence_entered": null,
+                "is_fv_eta": null,
+                "change_details": null,
+                "geofence_details": null
+            }
+        ]
+    }
+}
