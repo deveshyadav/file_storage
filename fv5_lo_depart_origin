@@ -1,0 +1,50 @@
+//amznReId- 59ebf5de-9d2b-4223-ba93-e33d3c341c40
+
+//Request
+{
+    "carrier": {
+        "scac": "TEST",
+        "fvCarrierId": "FV0834338A"
+    },
+    "location": {
+        "latitude": 42.49399,
+        "longitude": -83.39996
+    },
+    "eventDetail": {
+        "eventDate": "{{origin_actual_departure}}",
+        "event": "LO"
+    }
+}
+
+//Response
+{
+    "shipment_status": {
+        "id": 3255199046,
+        "organization_id": 1003,
+        "user_id": null,
+        "shipment_id": 39808864,
+        "shipment_stop_id": null,
+        "status_location_id": null,
+        "actual_created_at": "2024-10-25T10:00:00+00:00",
+        "remarks": null,
+        "created_at": null,
+        "updated_at": null,
+        "obc_asset_id": "DIRECT",
+        "driver_id": null,
+        "status_code": "LO",
+        "status_reason_code": null,
+        "is_exception": false,
+        "status_type": 1,
+        "message_id": null,
+        "longitude": -83.39996,
+        "latitude": 42.49399,
+        "processed_at": "2024-10-25 10:44:45.461552+00:00",
+        "trailer_number": "TRUCK-TRAILER",
+        "status_details": "{\"last_reported_at\": \"2024-10-25T10:00:00Z\", \"current_latitude\": 42.49399, \"current_longitude\": -83.39996, \"current_city\": \"Farmington Hills\", \"current_state\": \"MI\", \"current_postal_code\": \"48331\", \"current_country\": \"US\", \"reported_at\": \"2024-10-25T10:00:00Z\", \"reported_at_local\": \"2024-10-25 06:00:00\", \"created_at\": \"2024-10-25T10:44:44.784719Z\", \"remaining_miles\": 28.845905933, \"destination_eta\": \"2024-10-25T10:30:16Z\", \"l0_eta\": \"2024-10-25T10:30:16Z\", \"Metadata\": {\"message\": \"No historical data\", \"mode-id\": 1, \"dest-loc-id\": 193719, \"origin-loc-id\": 193720, \"departure\": \"2024-10-25T10:00:00\", \"points-interest-date\": \"2024-10-25T10:00:00Z\", \"status\": \"ACTIVE\", \"points-of-interest\": \"-83.4,42.5\", \"eta-source\": \"SHIPMENT\", \"carrier-organization-id\": 1003, \"creator_shipment_id\": \"AYI5FYGDY71\", \"external_entity_id\": null, \"solution_id\": null, \"org_fv_id\": \"FV3221778A\", \"num_stops\": 2, \"remaining_distance\": 28.845905933, \"stop_sequence\": null, \"stop_location_id\": null, \"longitude\": -83.39996, \"latitude\": 42.49399, \"line_of_business\": 2, \"delivery_window_start\": \"2024-10-25T14:30:00\", \"delivery_window_end\": \"2024-10-25T15:30:00\", \"total_distance\": 37.610343888, \"pickup_window_start\": \"2024-10-25T08:30:00+00:00\", \"pickup_window_end\": \"2024-10-25T09:30:00+00:00\"}, \"eta_updated\": \"2024-10-25T10:00:00+00:00\", \"id\": 3255199043, \"status_code\": \"LO\"}",
+        "actor_id": "auth0|5b9817c072d4bb47f9a5fae1",
+        "actor_type": "system",
+        "actor_email": "test@freightverify-api.com",
+        "rail_asset_id": null,
+        "equipment_desc": null
+    }
+}
