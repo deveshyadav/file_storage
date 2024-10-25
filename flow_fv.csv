@@ -1,1 +1,84 @@
+S.No.	Operation	EventType	RequestId	Sources	Level
+1	Shipment creation	SC	90d6a937-a98e-4cce-a52a-33bcb92dfc09	v2_post_put_shipment	0
+				partview-filter-list-handler	1
+				proxy_shipments	1
+				partview-filter-list-handler	1
+				partview-filter-list-handler	1
+				partview-filter-list-handler	1
+				part-handler	1
+				part-to-container-handler	1
+				partview-filter-list-handler	1
+				create_shipments	2
+				trip-leg-handler	3
+				update_route_timing	3
+				get_organizations	3
+				eta_setter_shipment	3
+				get_organizations	3
+				package-container-handler	3
+				package-container-handler	3
+				trip-leg-handler	3
+				get_system_configuration	4
+				package-container-event-replay-handler	4
+					
+2	Carrier Departure	AF	59f080d2-ad82-4910-ae8e-1e3b108c909c	v2_post_shipment_status	0
+				proxy_shipment_status	1
+				asset_assign	2
+					
+3	LO Departure Origin	LO	55ce4c93-869d-4f0b-bf3b-267bc7d6ac88	v2_post_shipment_status	0
+				proxy_shipment_status	1
+				location_update	2
+				update_route_timing	3
+				timezone-get	3
+				get_organizations	4
+				get_organizations	4
+				send_event_to_subscribers	4
+					
+4	Carrier Arrival Origin	X3	8e2fcf60-c676-4012-a027-245b42bab1ab	v2_post_shipment_status	0
+				proxy_shipment_status	1
+				unknown_code	2
+					
+5	Departing Origin	LO	59ebf5de-9d2b-4223-ba93-e33d3c341c40 	v2_post_shipment_status	0
+				proxy_shipment_status	1
+				location_update	2
+				timezone-get	3
+				update_route_timing	3
+				eta_proxy	4
+					
+6	Carrier Departure	AF	6411fe1e-7ee4-4135-bc3f-88ba217ad974	v2_post_shipment_status	0
+				proxy_shipment_status	1
+				unknown_code	2
+				get_organizations	3
+				get_organizations	3
+					
+7	LO Near Destination	LO	0dfd2ca0-90b2-4a46-b023-09de0a206104	v2_post_shipment_status	0
+				proxy_shipment_status	1
+				location_update	2
+				timezone-get	3
+				update_route_timing	3
+				eta_proxy	4
+					
+8	LO at Destination	LO	63c911b3-0ef0-4fe3-a138-f89db91f377f	v2_post_shipment_status	0
+				proxy_shipment_status	1
+				location_update	2
+				timezone-get	3
+				update_route_timing	3
+				get_organizations	4
+				get_organizations	4
+				eta_proxy	4
+				send_event_to_subscribers	4
+					
+9	Carrier Arrival Dest	X1	b1485fa8-26da-473a-9b47-666c61958656	v2_post_shipment_status	0
+				proxy_shipment_status	1
+				unknown_code	2
+					
+10	LO Departing Destination	LO	0c75ddbe-e38c-4733-883e-c802fef914b9	v2_post_shipment_status	0
+				proxy_shipment_status	1
+				location_update	2
+				timezone-get	3
+				update_route_timing	3
+				send_event_to_subscribers	4
+					
+11	Carrier Departure Dest	CD	47fa093c-eca8-418a-beb4-5b5ec664de4f	v2_post_shipment_status	0
+				proxy_shipment_status	1
+				unknown_code	2
 
