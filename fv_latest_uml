@@ -1,0 +1,60 @@
+@startuml
+actor Shipper
+actor Carrier
+actor "Telematics Provider" as Telematics
+participant "FreightVerify System" as FV
+participant "Event Processing Lambda" as Lambda
+participant "PostgreSQL DB" as DB
+
+== Shipment Created ==
+Shipper -> FV: Create Shipment (shipment data)
+FV -> DB: Insert shipment into Shipments Table
+FV --> Shipper: Acknowledge Shipment Created
+
+== Event Flow: Shipment Status Updates ==
+loop Until Shipment Delivered
+    Carrier -> FV: Send Shipment Status (Event Code: SC)
+    FV -> Lambda: Process Shipment Creation
+    Lambda -> DB: Insert Shipment Event (SC)
+    
+    Carrier -> FV: Send Shipment Status (Event Code: AF)
+    FV -> Lambda: Process Carrier Departure
+    Lambda -> DB: Update Shipment Status (Carrier Departed)
+
+    Carrier -> FV: Send Shipment Status (Event Code: LO)
+    FV -> Lambda: Process LO Departure Origin
+    Lambda -> DB: Update Shipment Status (Departing Origin)
+
+    Telematics -> FV: Location Update (Event Code: LO)
+    FV -> Lambda: Process Location Update
+    Lambda -> DB: Update Shipment Location (Longitude, Latitude)
+
+    Carrier -> FV: Send Shipment Status (Event Code: X3)
+    FV -> Lambda: Process Pickup Arrival
+    Lambda -> DB: Update Shipment Status (Pickup Arrival)
+
+    Carrier -> FV: Send Shipment Status (Event Code: CP)
+    FV -> Lambda: Process Completed Loading
+    Lambda -> DB: Update Shipment Status (Completed Loading)
+
+    Carrier -> FV: Send Shipment Status (Event Code: X1)
+    FV -> Lambda: Process Drop Off Arrival
+    Lambda -> DB: Update Shipment Status (Drop Off Arrival)
+
+    Telematics -> FV: Send Shipment Status (Event Code: LO)
+    FV -> Lambda: Process LO at Destination
+    Lambda -> DB: Update Shipment Status (At Destination)
+
+    Carrier -> FV: Send Shipment Status (Event Code: CD)
+    FV -> Lambda: Process Carrier Departure Destination
+    Lambda -> DB: Update Shipment Status (Carrier Departure Destination)
+
+end
+
+== Shipment Delivered ==
+Carrier -> FV: Send Shipment Status (Event Code: Delivered)
+FV -> Lambda: Process Final Delivery
+Lambda -> DB: Mark Shipment as Delivered
+
+FV --> Shipper: Notify Shipment Delivered
+@enduml
