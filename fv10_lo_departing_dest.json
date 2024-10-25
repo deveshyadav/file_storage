@@ -1,0 +1,50 @@
+//amznRId- 0c75ddbe-e38c-4733-883e-c802fef914b9
+
+//Request
+{
+    "carrier": {
+        "scac": "TEST",
+        "fvCarrierId": "FV0834338A"
+    },
+    "location": {
+        "latitude": 42.28908,
+        "longitude": -83.81251
+    },
+    "eventDetail": {
+        "eventDate": "{{destination_actual_departure}}",
+        "event": "LO"
+    }
+}
+
+//Response
+{
+    "shipment_status": {
+        "id": 3255199054,
+        "organization_id": 1003,
+        "user_id": null,
+        "shipment_id": 39808864,
+        "shipment_stop_id": null,
+        "status_location_id": null,
+        "actual_created_at": "2024-10-25T16:00:00+00:00",
+        "remarks": null,
+        "created_at": null,
+        "updated_at": null,
+        "obc_asset_id": "DIRECT",
+        "driver_id": null,
+        "status_code": "LO",
+        "status_reason_code": null,
+        "is_exception": false,
+        "status_type": 1,
+        "message_id": null,
+        "longitude": -83.81251,
+        "latitude": 42.28908,
+        "processed_at": "2024-10-25 11:06:59.784592+00:00",
+        "trailer_number": "TRUCK-TRAILER",
+        "status_details": "{\"last_reported_at\": \"2024-10-25T15:00:00Z\", \"current_latitude\": 42.28908, \"current_longitude\": -83.81251, \"current_city\": \"Ann Arbor\", \"current_state\": \"MI\", \"current_postal_code\": \"48103\", \"current_country\": \"US\", \"reported_at\": \"2024-10-25T16:00:00Z\", \"reported_at_local\": \"2024-10-25 12:00:00\", \"created_at\": \"2024-10-25T11:06:49.197469Z\", \"remaining_miles\": 0, \"l0_eta\": \"2024-10-25T14:13:51Z\", \"eta_updated\": \"2024-10-25T14:00:00+00:00\", \"id\": 3255199048, \"status_code\": \"LO\"}",
+        "actor_id": "auth0|5b9817c072d4bb47f9a5fae1",
+        "actor_type": "system",
+        "actor_email": "test@freightverify-api.com",
+        "rail_asset_id": null,
+        "equipment_desc": null
+    }
+}
