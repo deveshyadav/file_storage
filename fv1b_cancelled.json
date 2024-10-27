@@ -1,0 +1,45 @@
+//amznRid- 14c26558-c434-47ff-99a8-d029c876179d
+
+//Response
+
+{
+    "shipment_status": {
+        "id": 3255200718,
+        "organization_id": 1003,
+        "user_id": null,
+        "shipment_id": 39809123,
+        "shipment_stop_id": null,
+        "status_location_id": null,
+        "actual_created_at": "2024-10-27T13:48:07.137203+00:00",
+        "remarks": "Cancel Shipment",
+        "created_at": null,
+        "updated_at": null,
+        "obc_asset_id": null,
+        "driver_id": null,
+        "status_code": "CA",
+        "status_reason_code": null,
+        "is_exception": false,
+        "status_type": 1,
+        "message_id": null,
+        "longitude": null,
+        "latitude": null,
+        "processed_at": null,
+        "trailer_number": null,
+        "status_details": "{\"last_reported_at\": null, \"source_type_name\": \"Carrier Provided\", \"reported_at\": \"2024-10-27T13:48:07.137203Z\", \"created_at\": \"2024-10-27T13:48:07.294498Z\"}",
+        "actor_id": "auth0|5b9817c072d4bb47f9a5fae1",
+        "actor_type": "system",
+        "actor_email": "test@freightverify-api.com",
+        "rail_asset_id": null,
+        "equipment_desc": null
+    },
+    "notes": {
+        "id": 23256351,
+        "shipment_id": 39809123,
+        "shipment_note_type_id": 2,
+        "note": "Cancel Shipment",
+        "visible": true,
+        "created_at": "2024-10-27T13:48:07.425773",
+        "updated_at": "2024-10-27T13:48:07.425773",
+        "creator_shipment_id": null
+    }
+}
