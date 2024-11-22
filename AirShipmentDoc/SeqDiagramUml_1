@@ -1,0 +1,73 @@
+@startuml
+actor Shipper
+actor Carrier
+actor TelematicsProvider
+
+participant "FreightVerify System - AIR Mode" as FVS
+participant "Event Processing Lambda" as EPL
+participant "PostgreSQL DB" as DB
+
+== AIR Mode Shipment Behaviors ==
+
+Shipper -> FVS: Send Event (ShipmentCreate)
+FVS -> EPL: Process Event
+EPL -> DB: Persist Event
+EPL -> FVS: Trigger Behavior: updateStatus("Scheduled")
+FVS -> DB: Update Status in Shipment Table
+FVS -> Shipper: notifyStakeholders("Shipment Scheduled in AIR Mode")
+
+Carrier -> FVS: Send Event (LocationUpdate - Over Pacific Ocean)
+FVS -> EPL: Process Event
+EPL -> DB: Update Shipment Location
+EPL -> FVS: Trigger Behavior: updateLocation("Over Pacific Ocean")
+FVS -> Shipper: notifyStakeholders("Location Updated: Over Pacific Ocean")
+
+Carrier -> FVS: Send Event (Arrival at Destination Airport)
+FVS -> EPL: Process Event
+EPL -> DB: Update Shipment Status
+EPL -> FVS: Trigger Behaviors
+EPL -> FVS: updateStatus("Arrived at Destination")
+EPL -> FVS: notifyStakeholders("Arrived at Destination")
+FVS -> Shipper: notifyStakeholders("Shipment Arrived at Destination")
+
+TelematicsProvider -> FVS: Send Event (Exception - Delayed Due to Weather)
+FVS -> EPL: Process Event
+EPL -> DB: Add Exception to Shipment
+EPL -> FVS: Trigger Behaviors
+EPL -> FVS: updateShipment("Add Exception: Delayed Due to Weather")
+EPL -> FVS: notifyStakeholders("Exception Noted: Delayed Due to Weather")
+FVS -> Shipper: notifyStakeholders("Exception Logged: Delayed Due to Weather")
+
+== Update Shipment Scenario ==
+
+Shipper -> FVS: Request update (ShipmentUpdate)
+FVS -> EPL: Process request
+EPL -> DB: Update Shipment with Changes
+EPL -> FVS: Trigger Behavior: updateShipment
+group updateShipment
+  EPL -> DB: Retrieve Current Shipment
+  EPL -> FVS: Compare Differences
+end
+note over FVS: Changes Detected:\n- Added Stop: Phoenix Sky Harbor Airport\n- Modified Stop: Dallas/Fort Worth Airport\n- Added References: AIR-PART1, AIR-PART2\n- Updated Telematics: AIR-ASSET2
+FVS -> Shipper: notifyStakeholders("Shipment Updated with Changes")
+
+== Final Status Changes ==
+
+alt Shipment Delivered
+    Carrier -> FVS: Send Event (Delivered)
+    FVS -> EPL: Process Event
+    EPL -> DB: Mark Shipment as Delivered
+    EPL -> FVS: Trigger Behaviors
+    EPL -> FVS: updateStatus("Delivered")
+    EPL -> FVS: notifyStakeholders("Shipment Delivered in AIR Mode")
+    FVS -> Shipper: notifyStakeholders("Shipment Delivered")
+else Shipment Canceled
+    Shipper -> FVS: Request Shipment Cancellation
+    FVS -> EPL: Process Cancellation
+    EPL -> DB: Mark Shipment as Canceled
+    EPL -> FVS: Trigger Behaviors
+    EPL -> FVS: updateStatus("Canceled")
+    EPL -> FVS: notifyStakeholders("Shipment Canceled in AIR Mode")
+    FVS -> Shipper: notifyStakeholders("Shipment Canceled")
+end
+@enduml
