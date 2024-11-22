@@ -1,0 +1,113 @@
+@startuml
+actor Shipper
+actor Carrier
+actor TelematicsProvider
+participant "FreightVerify System - AIR Mode" as FVS
+participant "Event Processing Lambda" as Lambda
+database "PostgreSQL DB" as DB
+
+box "AIR Mode Shipment Behaviors" #LightBlue
+    note right
+        1. Event Sources:
+        - Carrier Computer System
+        - FreightVerify Integrations
+        - Carrier Cell Phone
+        - Internally Fired Events
+        - UI
+    end note
+    note right of FVS
+        Behaviors Highlighted:
+        - updateStatus()
+        - updateShipment()
+        - notifyStakeholders()
+    end note
+end box
+Shipper -> FVS: Send Event (ShipmentCreate)
+activate FVS
+FVS -> Lambda: Process Event
+activate Lambda
+Lambda -> DB: Persist Event
+DB --> Lambda: Event Saved
+Lambda -> FVS: Trigger Behavior: updateStatus("Scheduled")
+FVS -> DB: Update Status in Shipment Table
+DB --> FVS: Status Updated
+FVS -> Shipper: notifyStakeholders("Shipment Scheduled in AIR Mode")
+deactivate Lambda
+deactivate FVS
+
+Carrier -> FVS: Send Event (LocationUpdate - Over Pacific Ocean)
+activate FVS
+FVS -> Lambda: Process Event
+activate Lambda
+note over Lambda: Direct Injection for Internally Fired Events
+Lambda -> DB: Update Shipment Stop (Over Pacific Ocean)
+DB --> Lambda: Shipment Stop Updated
+Lambda -> FVS: Trigger Behavior: updateShipment("Stop Updated: Over Pacific Ocean")
+FVS -> DB: Update Shipment Status
+DB --> FVS: Status Updated
+FVS -> Carrier: notifyStakeholders("Stop Updated: Over Pacific Ocean")
+deactivate Lambda
+deactivate FVS
+
+Carrier -> FVS: Send Event (Arrival at Destination Airport)
+activate FVS
+FVS -> Lambda: Process Event
+activate Lambda
+Lambda -> DB: Update Shipment Stop
+DB --> Lambda: Stop Updated
+Lambda -> FVS: Trigger Behaviors\n- updateStatus("Arrived at Destination")\n- notifyStakeholders("Arrived at Destination")
+FVS -> DB: Update Shipment Status
+DB --> FVS: Status Updated
+deactivate Lambda
+deactivate FVS
+
+
+Carrier -> FVS: Send Event (Exception - Delayed Due to Weather)
+activate FVS
+FVS -> Lambda: Process Event
+activate Lambda
+Lambda -> DB: Add Exception to Shipment
+DB --> Lambda: Exception Logged
+Lambda -> FVS: Trigger Behaviors\n- updateShipment("Add Exception: Delayed Due to Weather")\n- notifyStakeholders("Exception Logged: Delayed Due to Weather")
+FVS -> DB: Update Shipment Table for Exception
+DB --> FVS: Exception Added
+deactivate Lambda
+deactivate FVS
+
+
+Shipper -> FVS: Request update (ShipmentUpdate)
+activate FVS
+FVS -> Lambda: Process request
+activate Lambda
+Lambda -> DB: Retrieve Current Shipment
+DB --> Lambda: Current Shipment Retrieved
+Lambda -> FVS: Trigger Behavior: updateShipment
+FVS -> DB: Compare Differences
+DB --> FVS: Changes Detected
+FVS -> Shipper: notifyStakeholders("Shipment Updated with Changes")
+deactivate Lambda
+deactivate FVS
+
+alt Shipment Delivered
+    Carrier -> FVS: Send Event (Shipment Delivered)
+    activate FVS
+    FVS -> Lambda: Process Event
+    activate Lambda
+    Lambda -> DB: Mark Shipment as Delivered
+    DB --> Lambda: Shipment Marked Delivered
+    Lambda -> FVS: Trigger Behaviors\n- updateStatus("Delivered")\n- notifyStakeholders("Shipment Delivered in AIR Mode")
+    deactivate Lambda
+    deactivate FVS
+else Shipment Canceled
+    Shipper -> FVS: Request Shipment Cancellation
+    activate FVS
+    FVS -> Lambda: Process Cancellation
+    activate Lambda
+    Lambda -> DB: Mark Shipment as Canceled
+    DB --> Lambda: Shipment Marked Canceled
+    Lambda -> FVS: Trigger Behaviors\n- updateStatus("Canceled")\n- notifyStakeholders("Shipment Canceled in AIR Mode")
+    deactivate Lambda
+    deactivate FVS
+end
+
+@enduml
