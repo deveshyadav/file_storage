@@ -25,19 +25,34 @@ EPL -> FVS: Trigger Behavior: <b><size:14>updateStatus("Scheduled")</size></b>
 FVS -> DB: Update Status in Shipment Table
 FVS -> Shipper: <b><size:14>notifyStakeholders("Shipment Scheduled in AIR Mode")</size></b>
 
+== VD (Vehicle Departure) Event ==
+
+Carrier -> FVS: Send Event (Vehicle Departure - VD)
+FVS -> EPL: Process Event
+EPL -> DB: Update Stop as Departed
+EPL -> FVS: Trigger Behaviors
+EPL -> FVS: updateStatus("Departed from Origin")
+EPL -> FVS: notifyStakeholders("Departure Confirmed for AIR Mode")
+FVS -> Shipper: notifyStakeholders("Shipment Departed from Origin")
+
+
 Carrier -> FVS: Send Event (LocationUpdate - Over Pacific Ocean)
 FVS -> EPL: Process Event
 EPL -> DB: Update Shipment Location
 EPL -> FVS: Trigger Behavior: <b><size:14>updateLocation("Over Pacific Ocean")</size></b>
 FVS -> Shipper: <b><size:14>notifyStakeholders("Location Updated: Over Pacific Ocean")</size></b>
 
-Carrier -> FVS: Send Event (Arrival at Destination Airport)
+
+== UV (Update Vehicle/Stop Validation) Event ==
+
+Carrier -> FVS: Send Event (Stop Validation - UV)
 FVS -> EPL: Process Event
-EPL -> DB: Update Shipment Status
+EPL -> DB: Update Stop as Arrived
 EPL -> FVS: Trigger Behaviors
-EPL -> FVS: <b><size:14>updateStatus("Arrived at Destination")</size></b>
-EPL -> FVS: <b><size:14>notifyStakeholders("Arrived at Destination")</size></b>
-FVS -> Shipper: <b><size:14>notifyStakeholders("Shipment Arrived at Destination")</size></b>
+EPL -> FVS: updateStatus("Arrived at Destination Stop")
+EPL -> FVS: notifyStakeholders("Stop Validation Completed for AIR Mode")
+FVS -> Shipper: notifyStakeholders("Shipment Arrived at Destination Stop")
+
 
 TelematicsProvider -> FVS: Send Event (Exception - Delayed Due to Weather)
 FVS -> EPL: Process Event
@@ -46,6 +61,7 @@ EPL -> FVS: Trigger Behaviors
 EPL -> FVS: <b><size:14>updateShipment("Add Exception: Delayed Due to Weather")</size></b>
 EPL -> FVS: <b><size:14>notifyStakeholders("Exception Noted: Delayed Due to Weather")</size></b>
 FVS -> Shipper: <b><size:14>notifyStakeholders("Exception Logged: Delayed Due to Weather")</size></b>
+
 
 == Update Shipment Scenario ==
 
@@ -63,7 +79,7 @@ FVS -> Shipper: <b><size:14>notifyStakeholders("Shipment Updated with Changes")<
 == Final Status Changes ==
 
 alt Shipment Delivered
-    Carrier -> FVS: Send Event (Delivered)
+    Carrier -> FVS: Send Event (Arrival at Destination)
     FVS -> EPL: Process Event
     EPL -> DB: Mark Shipment as Delivered
     EPL -> FVS: Trigger Behaviors
