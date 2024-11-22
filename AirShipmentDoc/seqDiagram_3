@@ -1,0 +1,82 @@
+@startuml
+actor Shipper
+actor Carrier
+actor TelematicsProvider
+
+participant "FreightVerify System - AIR Mode" as FVS
+participant "Event Processing Lambda" as EPL
+participant "PostgreSQL DB" as DB
+
+note right of FVS
+Events originate from various sources:
+- Carrier systems
+- FreightVerify integrations
+- Carrier mobile apps
+- Internally fired events
+- User actions via the UI
+end note
+
+== AIR Mode Shipment Behaviors ==
+
+Shipper -> FVS: Send Event (ShipmentCreate)
+FVS -> EPL: Process Event
+EPL -> DB: Persist Event
+EPL -> FVS: Trigger Behavior: <b><size:14>updateStatus("Scheduled")</size></b>
+FVS -> DB: Update Status in Shipment Table
+FVS -> Shipper: <b><size:14>notifyStakeholders("Shipment Scheduled in AIR Mode")</size></b>
+
+Carrier -> FVS: Send Event (LocationUpdate - Over Pacific Ocean)
+FVS -> EPL: Process Event
+EPL -> DB: Update Shipment Location
+EPL -> FVS: Trigger Behavior: <b><size:14>updateLocation("Over Pacific Ocean")</size></b>
+FVS -> Shipper: <b><size:14>notifyStakeholders("Location Updated: Over Pacific Ocean")</size></b>
+
+Carrier -> FVS: Send Event (Arrival at Destination Airport)
+FVS -> EPL: Process Event
+EPL -> DB: Update Shipment Status
+EPL -> FVS: Trigger Behaviors
+EPL -> FVS: <b><size:14>updateStatus("Arrived at Destination")</size></b>
+EPL -> FVS: <b><size:14>notifyStakeholders("Arrived at Destination")</size></b>
+FVS -> Shipper: <b><size:14>notifyStakeholders("Shipment Arrived at Destination")</size></b>
+
+TelematicsProvider -> FVS: Send Event (Exception - Delayed Due to Weather)
+FVS -> EPL: Process Event
+EPL -> DB: Add Exception to Shipment
+EPL -> FVS: Trigger Behaviors
+EPL -> FVS: <b><size:14>updateShipment("Add Exception: Delayed Due to Weather")</size></b>
+EPL -> FVS: <b><size:14>notifyStakeholders("Exception Noted: Delayed Due to Weather")</size></b>
+FVS -> Shipper: <b><size:14>notifyStakeholders("Exception Logged: Delayed Due to Weather")</size></b>
+
+== Update Shipment Scenario ==
+
+Shipper -> FVS: Request update (ShipmentUpdate)
+FVS -> EPL: Process request
+EPL -> DB: Update Shipment with Changes
+EPL -> FVS: Trigger Behavior: <b><size:14>updateShipment</size></b>
+group updateShipment
+  EPL -> DB: Retrieve Current Shipment
+  EPL -> FVS: Compare Differences
+end
+note over FVS: Changes Detected:\n- Added Stop: Phoenix Sky Harbor Airport\n- Modified Stop: Dallas/Fort Worth Airport\n- Added References: AIR-PART1, AIR-PART2\n- Updated Telematics: AIR-ASSET2
+FVS -> Shipper: <b><size:14>notifyStakeholders("Shipment Updated with Changes")</size></b>
+
+== Final Status Changes ==
+
+alt Shipment Delivered
+    Carrier -> FVS: Send Event (Delivered)
+    FVS -> EPL: Process Event
+    EPL -> DB: Mark Shipment as Delivered
+    EPL -> FVS: Trigger Behaviors
+    EPL -> FVS: <b><size:14>updateStatus("Delivered")</size></b>
+    EPL -> FVS: <b><size:14>notifyStakeholders("Shipment Delivered in AIR Mode")</size></b>
+    FVS -> Shipper: <b><size:14>notifyStakeholders("Shipment Delivered")</size></b>
+else Shipment Canceled
+    Shipper -> FVS: Request Shipment Cancellation
+    FVS -> EPL: Process Cancellation
+    EPL -> DB: Mark Shipment as Canceled
+    EPL -> FVS: Trigger Behaviors
+    EPL -> FVS: <b><size:14>updateStatus("Canceled")</size></b>
+    EPL -> FVS: <b><size:14>notifyStakeholders("Shipment Canceled in AIR Mode")</size></b>
+    FVS -> Shipper: <b><size:14>notifyStakeholders("Shipment Canceled")</size></b>
+end
+@enduml
