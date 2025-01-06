@@ -1,0 +1,45 @@
+"code","name","description","name","code"
+"1",Arrived,,Air,FV_ADL
+"101","1 Third Party Notification of Arrival Delay (LSC)",,Air,
+"12",Customs Release,,Air,
+"13",Picked Up,,Air,FV_APU
+"20",Arrival Delay,,Air,
+"21",Delivered (to Customer),,Air,
+"24",Departed (POL/Airport),,Air,FV_DPU
+"25",Departure Delay,,Air,
+"29",Unloaded,,Air,
+"48",Loaded,,Air,
+"67",Gate Out (POD/Airport),,Air,
+"74",Gate In (POL/Airport),,Air,
+"78",Freight Release,,Air,
+AF,Departed,,Air,FV_PU
+AG,Estimated Delivery,,Air,
+B6,ETA to Airport,,Air,
+back_order,Backorder,Backorder,Air,
+BC,Cleared Customs,,Air,
+behind_schedule,Shipment Behind Schedule,,Air,
+C1,Estimated to Depart Terminal Location,,Air,
+CA,Shipment Canceled,Shipment has been canceled,Air,
+CD,Departed Drop Off,,Air,FV_DL
+clear_back_order,Backorder Cleared,Backorder Cleared,Air,
+clear_manual_carrier_delay,Carrier Delay Cleared,Clear Manual Carrier Delay,Air,
+CP,Picked Up,Carrier has successfully received the contents of the shipment at a location,Air,FV_PUL
+D1,Delivered,Carrier has arrived at the final shipment stop and dropped off the contents of the shipment,Air,FV_DLL
+E,Aircraft Estimated Time of Arrival,,Air,
+GI,Geofence Entered,,Air,
+GO,Geofence Exited,,Air,
+I1,In-gate,,Air,
+manual_carrier_delay,Carrier Delay Reported,Manual Carrier Delay,Air,
+OA,Out-gate,,Air,
+OO,Paperwork received,,Air,
+SC,Shipment Created,Shipment has been created,Air,
+SD,Shipment Delayed,,Air,
+SSA,Scac Updated,New Scac Assigned,Air,
+SU,Shipment Updated,Shipment has been changed,Air,
+UV,Unloaded From Aircraft,,Air,
+VA,Airport Arrival,,Air,FV_APU
+VD,Airport Departure,,Air,FV_PU
+X1,Arrived,,Air,FV_ADL
+X3,Arrived,,Air,FV_APU
+XB,Asset Assigned,,Air,
+XX,Asset Resigned,Asset has been removed from the shipment,Air,
